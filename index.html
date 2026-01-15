@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ZenEazzy — Online Pharmacy</title>
+  <meta name="description" content="ZenEazzy - trusted online pharmacy. Order medicines, wellness products and book consultations." />
+  <style>
+    
+    :root{
+      --brand:#0b6e4f; 
+      --accent:#ffd166; 
+      --bg:#f7f9fb;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --glass: rgba(255,255,255,0.6);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#eef6f3);color:#0f1724}
+    header{background:linear-gradient(90deg,var(--brand),#0a8a66);color:white;padding:18px 24px;display:flex;gap:16px;align-items:center;justify-content:space-between}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:48px;height:48px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;color:var(--brand);font-weight:700;box-shadow:0 4px 14px rgba(11,110,79,0.14)}
+    nav{display:flex;gap:12px;align-items:center}
+    nav a{color:rgba(255,255,255,0.95);text-decoration:none;padding:8px;border-radius:8px}
+    nav a:hover{background:rgba(255,255,255,0.08)}
+
+    .container{max-width:1100px;margin:22px auto;padding:0 20px}
+    .hero{display:flex;gap:24px;align-items:center}
+    .hero-left{flex:1}
+    .hero-right{flex:1}
+    h1{font-size:28px;margin:0 0 8px}
+    p.lead{margin:0 0 16px;color:var(--muted)}
+
+    .searchbar{display:flex;gap:8px;background:var(--card);padding:10px;border-radius:12px;box-shadow:0 4px 18px rgba(2,6,23,0.06)}
+    .searchbar input{border:0;outline:none;font-size:15px;width:100%;padding:8px}
+    .btn{background:var(--brand);color:white;padding:10px 14px;border-radius:10px;border:0;cursor:pointer}
+    .btn.secondary{background:transparent;color:var(--brand);border:1px solid rgba(11,110,79,0.14)}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}
+    .card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 10px 22px rgba(13,38,33,0.04);display:flex;flex-direction:column}
+    .card img{width:100%;height:160px;object-fit:contain;border-radius:8px;background:linear-gradient(180deg,#fff,#f4f7f6)}
+    .card h3{margin:12px 0 6px;font-size:16px}
+    .price{font-weight:700}
+    .muted{color:var(--muted);font-size:13px}
+
+    .badge{display:inline-block;padding:6px 8px;border-radius:999px;background:var(--accent);font-weight:600}
+
+    footer{margin:40px 0 60px;color:var(--muted);text-align:center}
+
+    .cart-btn{position:relative}
+    .cart-count{position:absolute;right:-8px;top:-8px;background:#ff5252;color:white;padding:6px 8px;border-radius:999px;font-size:12px}
+    .drawer{position:fixed;right:20px;top:80px;width:360px;max-width:90%;background:var(--card);border-radius:12px;padding:14px;box-shadow:0 30px 60px rgba(2,8,23,0.12);transform:translateX(0);}
+    .drawer h4{margin:0 0 10px}
+    .cart-item{display:flex;gap:12px;align-items:center;padding:8px 0;border-bottom:1px dashed #eef2f7}
+    .cart-item img{width:56px;height:48px;object-fit:contain;border-radius:8px}
+    .qty{display:flex;gap:6px;align-items:center}
+
+    @media (max-width:900px){
+      .hero{flex-direction:column}
+      .grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:600px){
+      header{padding:12px}
+      .grid{grid-template-columns:1fr}
+      .drawer{right:10px;top:70px;width:94%}
+      h1{font-size:22px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">Z</div>
+      <div>
+        <div style="font-weight:700">ZenEazzy</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.9)">India's Most Trusted online pharmacy</div>
+      </div>
+    </div>
+    <nav aria-label="Main navigation">
+      <a href="medicine.html">Products</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <button class="btn cart-btn" id="open-cart">Cart <span class="cart-count" id="cart-count">0</span></button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-left">
+        <h1 id="hero-heading">Medicine & wellness, delivered to your door</h1>
+        <p class="lead">Easy refills, verified products and fast delivery. Upload prescriptions, get reminders and consult licensed pharmacists.</p>
+
+        <div class="searchbar" role="search" aria-label="Search products">
+          <input id="search" placeholder="Search medicine, brand or symptom (example: paracetamol)" />
+          <button class="btn" id="search-btn">Search</button>
+        </div>
+
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn secondary" id="upload-prescription">Upload Prescription</button>
+          <button class="btn" id="consult-btn">Consult Pharmacist</button>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div style="background:linear-gradient(180deg,rgba(11,110,79,0.06),rgba(10,138,102,0.04));padding:18px;border-radius:14px;">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="font-weight:700">Free delivery</div>
+            <div class="muted">on orders over ₹499</div>
+          </div>
+
+          <div style="margin-top:10px;display:flex;gap:10px;align-items:center">
+            <div class="badge">Verified</div>
+            <div class="muted">Genuine medicines & secure payments</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="products">
+      <h2 style="margin-top:28px">Popular products</h2>
+      <div class="grid" id="product-grid">
+      </div>
+    </section>
+    <section id="contact" style="margin-top:24px">
+      <h2>Contact & Support</h2>
+      <form id="contact-form" style="max-width:680px;background:var(--card);padding:14px;border-radius:10px;box-shadow:0 8px 30px rgba(2,8,23,0.04)">
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <input name="name" placeholder="Your name" required style="flex:1;padding:10px;border-radius:8px;border:1px solid #eef2f7" />
+          <input name="email" type="email" placeholder="Email" required style="flex:1;padding:10px;border-radius:8px;border:1px solid #eef2f7" />
+        </div>
+        <textarea name="message" placeholder="How can we help?" required style="width:100%;margin-top:8px;padding:10px;border-radius:8px;border:1px solid #eef2f7;min-height:100px"></textarea>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+          <button type="submit" class="btn">Send</button>
+        </div>
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>© Zeneazzy — India's Most Trusted Pharmacy</div>
+        <div class="muted"></div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="cart-drawer" style="display:none" class="drawer" aria-hidden="true">
+    <h4>Your cart</h4>
+    <div id="cart-items"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+      <div class="muted">Total:</div>
+      <div id="cart-total" style="font-weight:700">₹0</div>
+    </div>
+    <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+      <button class="btn secondary" id="close-cart">Continue shopping</button>
+      <button class="btn" id="checkout">Checkout</button>
+    </div>
+  </div>
+
+  <script>
+
+    const products = [
+      {id:1,name:'Aromatherapy Candle',desc:'Relieves Mind',price:299,image:'photos/Aromatherapy Candle.jpg'},
+      {id:2,name:'Ashwagandha Capsule  (Pack of 50)',desc:'Stamina Boostert',price:249,image:'photos/Ashwagandha Capsule.jpg'},
+      {id:3,name:'Brahmi Capsule (Bottle of 50)',desc:'Immunity supplement',price:299,image:'photos/Brahmi Capsule.jpg'},
+      {id:4,name:'Chamomile Herbal Tea',desc:'Soothes cough & throat',price:229,image:'photos/Chamomile Herbal Tea.jpg'},
+      {id:5,name:'Melatonin Gummies (Pack of 50)',desc:'Daily nutrition boost',price:299,image:'photos/Melatonin Gummies.jpg'},
+      {id:4,name:'Scratch Relief Gel',desc:'Cure Of All Types Of Scratches',price:119,image:'photos/Scratch relief.png'},
+      {id:4,name:'Paracetamol',desc:'For Fever And Cold (Pack of 50)',price:199,image:'photos/Paracetamol.png'},
+    ];
+
+
+    const CART_KEY = 'ZenEazzy_cart_v1';
+    function loadCart(){
+      try{ return JSON.parse(localStorage.getItem(CART_KEY))||{} }catch(e){return {}} }
+    function saveCart(cart){ localStorage.setItem(CART_KEY,JSON.stringify(cart)) }
+
+    function renderProducts(list){
+      const grid = document.getElementById('product-grid');
+      grid.innerHTML = '';
+      list.forEach(p=>{
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `\
+          <img alt="${p.name}" src="${p.image}"/>\
+          <h3>${p.name}</h3>\
+          <div class="muted">${p.desc}</div>\
+          <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:center">\
+            <div>\
+              <div class="price">₹${p.price}</div>\
+              <div class="muted" style="font-size:12px">In stock</div>\
+            </div>\
+            <div>\
+              <button class="btn" data-id="${p.id}">Add</button>\
+            </div>\
+          </div>\
+        `;
+        grid.appendChild(card);
+      });
+
+      document.querySelectorAll('.card .btn').forEach(b=>{
+        b.addEventListener('click',()=>{
+          const id = b.getAttribute('data-id');
+          addToCart(Number(id));
+        });
+      });
+    }
+
+    function addToCart(productId,qty=1){
+      const cart = loadCart();
+      cart[productId] = (cart[productId]||0)+qty;
+      saveCart(cart);
+      updateCartUI();
+    }
+
+    function removeFromCart(productId){
+      const cart = loadCart();
+      delete cart[productId];
+      saveCart(cart);
+      updateCartUI();
+    }
+
+    function changeQty(productId,qty){
+      const cart = loadCart();
+      if(qty<=0) delete cart[productId]; else cart[productId]=qty;
+      saveCart(cart);
+      updateCartUI();
+    }
+
+    function updateCartUI(){
+      const cart = loadCart();
+      const ids = Object.keys(cart);
+      const count = ids.reduce((s,id)=>s+cart[id],0);
+      document.getElementById('cart-count').textContent = count;
+
+      const itemsEl = document.getElementById('cart-items');
+      itemsEl.innerHTML = '';
+      let total = 0;
+      ids.forEach(id=>{
+        const p = products.find(x=>x.id==id);
+        const q = cart[id];
+        if(!p) return;
+        total += p.price*q;
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `\
+          <img src="${p.image}" alt="${p.name}"/>\
+          <div style=\"flex:1\">\
+            <div style=\"font-weight:700\">${p.name}</div>\
+            <div class=\"muted\">₹${p.price} × ${q} = ₹${p.price*q}</div>\
+          </div>\
+          <div class=\"qty\">\
+            <button data-action=\"minus\" data-id=\"${p.id}\">-</button>\
+            <div style=\"min-width:30px;text-align:center\">${q}</div>\
+            <button data-action=\"plus\" data-id=\"${p.id}\">+</button>\
+            <button data-action=\"remove\" data-id=\"${p.id}\" style=\"margin-left:6px\">✕</button>\
+          </div>\
+        `;
+        itemsEl.appendChild(div);
+      });
+      document.getElementById('cart-total').textContent = '₹'+total;
+
+      document.querySelectorAll('[data-action]').forEach(btn=>{
+        btn.onclick = ()=>{
+          const id = Number(btn.getAttribute('data-id'));
+          const action = btn.getAttribute('data-action');
+          const cart = loadCart();
+          const current = cart[id]||0;
+          if(action==='plus') changeQty(id,current+1);
+          if(action==='minus') changeQty(id,current-1);
+          if(action==='remove') removeFromCart(id);
+        }
+      });
+    }
+
+    document.getElementById('search-btn').addEventListener('click',()=>{
+      const q = document.getElementById('search').value.trim().toLowerCase();
+      const filtered = products.filter(p=> (p.name + ' ' + p.desc).toLowerCase().includes(q));
+      renderProducts(filtered.length?filtered:products);
+    });
+    document.getElementById('search').addEventListener('keyup',e=>{ if(e.key==='Enter') document.getElementById('search-btn').click(); });
+
+    document.getElementById('open-cart').addEventListener('click',()=>{
+      document.getElementById('cart-drawer').style.display='block';
+      document.getElementById('cart-drawer').setAttribute('aria-hidden','false');
+      updateCartUI();
+    });
+    document.getElementById('close-cart').addEventListener('click',()=>{
+      document.getElementById('cart-drawer').style.display='none';
+      document.getElementById('cart-drawer').setAttribute('aria-hidden','true');
+    });
+    document.getElementById('checkout').addEventListener('click',()=>{
+    });
+
+    document.getElementById('contact-form').addEventListener('submit',(e)=>{
+      e.preventDefault();
+      alert('Thanks — we\'ll get back to you. (This is a demo form)');
+      e.target.reset();
+    });
+
+    document.getElementById('upload-prescription').addEventListener('click',()=>{
+    });
+    document.getElementById('consult-btn').addEventListener('click',()=>{
+    });
+
+    renderProducts(products);
+    updateCartUI();
+  </script>
+</body>
+</html>
